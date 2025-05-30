@@ -9,6 +9,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Collider weapon;
     private int currentHealth;
     private Animator anim;
+    private bool isDead = false;
+
+    public int xpReward = 50;
 
     private void Awake()
     {
@@ -18,8 +21,9 @@ public class EnemyHealth : MonoBehaviour
 
     public bool IsDead()
     {
-        return currentHealth <= 0;
+        return isDead;
     }
+
     public void EnableWeapon()
     {
         weapon.enabled = true;
@@ -29,28 +33,43 @@ public class EnemyHealth : MonoBehaviour
     {
         weapon.enabled = false;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag.Equals("PlayerWeapon"))
+        if (other.CompareTag("PlayerWeapon") && !isDead)
         {
             TakeDamage(10);
-            print("enemy: " + currentHealth);
         }
     }
 
     public void TakeDamage(int damage)
     {
+        if (isDead) return;
+
         currentHealth -= damage;
-        if (currentHealth >0)
+
+        if (currentHealth > 0)
         {
-            print(currentHealth);
             anim.SetTrigger("Hit");
         }
         else
         {
+            isDead = true;
             anim.SetTrigger("Dead");
+            Die(); 
         }
-        
     }
-    
+
+    void Die()
+    {
+      
+        PlayerLevel playerLevel = FindObjectOfType<PlayerLevel>();
+        if (playerLevel != null)
+        {
+            playerLevel.AddXP(xpReward);
+        }
+
+        // Destroy enemy after delay to let animation play
+        Destroy(gameObject, 2f); 
+    }
 }

@@ -70,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
         {
             anim.SetTrigger("isDead");
             isAlive = false;
+            FindObjectOfType<UIManager>()?.ShowGameOverScreen();
         }
     }
 
