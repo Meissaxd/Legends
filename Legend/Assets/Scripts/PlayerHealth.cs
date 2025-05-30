@@ -8,11 +8,12 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int startingHealth = 100;
     [SerializeField] private float timeBetweenHits = 1f;
     [SerializeField] private Collider[] weapons;
+    [SerializeField] private AudioClip deathSound;
     private int currentHealth;
     private int currentMaxHealth;
     private float lastHitTime = 0;
     private Animator anim;
-    
+    private AudioSource audioSource;
 
     public static bool isAlive = true;
     
@@ -41,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         currentHealth = startingHealth;
         currentMaxHealth = startingHealth;
@@ -70,6 +72,7 @@ public class PlayerHealth : MonoBehaviour
         {
             anim.SetTrigger("isDead");
             isAlive = false;
+            audioSource.PlayOneShot(deathSound);
             FindObjectOfType<UIManager>()?.ShowGameOverScreen();
         }
     }

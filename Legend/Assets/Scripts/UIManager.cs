@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private Image healthGlobe, manaGlobe;
+    [SerializeField] private Image healthGlobe;
     [SerializeField] private Slider xpSlider;
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private GameObject victoryScreen;

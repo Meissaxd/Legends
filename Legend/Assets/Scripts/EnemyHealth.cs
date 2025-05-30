@@ -7,9 +7,11 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int startingHealth = 80;
     [SerializeField] private Collider weapon;
+    [SerializeField] private AudioClip deathSound;
     private int currentHealth;
     private Animator anim;
     private bool isDead = false;
+    private AudioSource audioSource;
 
     public int xpReward = 50;
 
@@ -17,6 +19,7 @@ public class EnemyHealth : MonoBehaviour
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     public bool IsDead()
@@ -56,6 +59,7 @@ public class EnemyHealth : MonoBehaviour
         {
             isDead = true;
             anim.SetTrigger("Dead");
+            audioSource.PlayOneShot(deathSound);
             Die(); 
         }
     }
