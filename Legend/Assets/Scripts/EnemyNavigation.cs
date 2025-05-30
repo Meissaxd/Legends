@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyNavigation : MonoBehaviour
 {
-    [SerializeField] private Transform target;
+    [SerializeField] public Transform target;
     private NavMeshAgent navMeshAgent;
     private Rigidbody rb;
     private Animator animator;
@@ -32,14 +32,18 @@ public class EnemyNavigation : MonoBehaviour
         else
         {
             animator.SetBool("Run", navMeshAgent.velocity.magnitude > 0.5f);
-            navMeshAgent.SetDestination(target.position);
-            
-            if (Vector3.Distance(transform.position, target.position) < 2.2f)
+
+            if (target != null && navMeshAgent.isOnNavMesh)
             {
-                if (Time.time > lastAttacKTime + timeBetweenAttacks)
+                navMeshAgent.SetDestination(target.position);
+
+                if (Vector3.Distance(transform.position, target.position) < 2.2f)
                 {
-                    animator.SetTrigger("Attack");
-                    lastAttacKTime = Time.time;
+                    if (Time.time > lastAttacKTime + timeBetweenAttacks)
+                    {
+                        animator.SetTrigger("Attack");
+                        lastAttacKTime = Time.time;
+                    }
                 }
             }
         }
