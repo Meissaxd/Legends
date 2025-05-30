@@ -590,7 +590,7 @@ MonoBehaviour:
   startingHealth: 80
   weapon: {fileID: 9089816685411625564}
   deathSound: {fileID: 8300000, guid: 75a4c21b0cbce524484a3aac907ee5d7, type: 3}
-  xpReward: 10
+  xpReward: 15
 --- !u!95 &1286626823163346581
 Animator:
   serializedVersion: 5
