@@ -63,6 +63,10 @@ public class EnemyHealth : MonoBehaviour
             Die(); 
         }
     }
+    public void EnableWeapons()
+    {
+        EnableWeapon();
+    }
 
     void Die()
     {
